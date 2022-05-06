@@ -1,29 +1,48 @@
 {
-    "name": "hacen-miske/code-generator",
-    "description": "This package is for generating a project model , Auth , ....",
-    "type": "library",
-    "license": "MIT",
-    "autoload": {
-        "psr-4": {
-            "HacenMiske\\CodeGenerator\\": "src/"
-        }
-    },
-    "authors": [
-        {
-            "name": "HacenWey",
-            "email": "elhassenidoumo@gmail.com"
-        }
-    ],
-    "minimum-stability": "dev",
-    "require": {},
-    "extra": {
-        "laravel": {
-            "providers": [
-                "HacenMiske\\CodeGenerator\\CrudGeneratorServiceProvider"
-            ],
-            "aliases": {
-                "CrudGenerator": "HacenMiske\\CodeGenerator\\Facades\\CrudGenerator"
-            }
-        }
+  "name": "hacen-miske/code-generator",
+  "description": "This package is for generating a project model , Auth , ....",
+  "type": "library",
+  "license": "MIT",
+  "autoload": {
+    "psr-4": {
+      "HacenMiske\\CodeGenerator\\": "src/"
     }
+  },
+  "authors": [
+    {
+      "name": "HacenWey",
+      "email": "elhassenidoumo@gmail.com"
+    }
+  ],
+  "keywords": [
+    "laravel",
+    "laravel5",
+    "laravel-5",
+    "laravel6",
+    "laravel-6",
+    "laravel7",
+    "laravel-7",
+    "laravel8",
+    "laravel-8",
+    "laravel-crud-generator",
+    "laravel-api-crud-generator"
+  ],
+  "minimum-stability": "dev",
+  "prefer-stable": true,
+  "require": {
+    "php": "^7.0 || ^7.1 || ^7.2 || ^7.3 || ^7.4"
+  },
+  "require-dev": {
+    "laravel/framework": "^5.5 || ^6.0 || ^7.0 || ^8.0"
+  },
+  "extra": {
+    "laravel": {
+      "providers": [
+        "HacenMiske\\CodeGenerator\\CrudGeneratorServiceProvider"
+      ],
+      "aliases": {
+        "CrudGenerator": "HacenMiske\\CodeGenerator\\Facades\\CrudGenerator"
+      }
+    }
+  }
 }
