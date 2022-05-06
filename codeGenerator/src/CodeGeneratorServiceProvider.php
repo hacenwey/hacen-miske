@@ -5,7 +5,7 @@ namespace HacenMiske\CodeGenerator;
 use Illuminate\Support\ServiceProvider;
 use HacenMiske\CodeGenerator\Commands\CrudGenerator;
 
-class CrudGeneratorServiceProvider extends ServiceProvider
+class CodeGeneratorServiceProvider extends ServiceProvider
 {
     /**
      * Register services.
