@@ -21,7 +21,7 @@ class CodeGeneratorServiceProvider extends ServiceProvider
 
         ]);
 
-        $this->mergeConfigFrom(__DIR__ . '/../config/crudSettings.json');
+        $this->mergeConfigFrom(__DIR__ . '/../config/crudSettings.json', 'crudSettings');
     }
 
 
