@@ -17,7 +17,7 @@ class CodeGeneratorServiceProvider extends ServiceProvider
         $this->loadViewsFrom(__DIR__ . '/resources/stubs', 'CrudGenerator');
 
         $this->publishes([
-            __DIR__ . '/resources/stubs' => resource_path('vendor/hacen-miske/stubs'),
+            __DIR__ . '/resources/stubs' => resource_path('hacen-miske/stubs'),
 
         ]);
     }
