@@ -19,7 +19,7 @@ Publish the configuration file
 
 This step is required
 
-php artisan vendor:publish --provider="HacenMiske\\CodeGenerator\\CrudGeneratorServiceProvider"
+php artisan vendor:publish --provider="HacenMiske\\CodeGenerator\\CodeGeneratorServiceProvider"
 Usage
 After publishing the configuration file just run the below command
 
