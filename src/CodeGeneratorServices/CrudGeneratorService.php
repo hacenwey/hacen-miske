@@ -11,7 +11,7 @@ class CrudGeneratorService
 
     protected static function GetStubs($type)
     {
-        return file_get_contents(resource_path("../stubs/crud-generator-stubs/$type.stub"));
+        return file_get_contents(resource_path("../stubs/$type.stub"));
     }
 
 
