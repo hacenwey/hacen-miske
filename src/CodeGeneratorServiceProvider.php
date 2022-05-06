@@ -21,7 +21,7 @@ class CodeGeneratorServiceProvider extends ServiceProvider
 
         ]);
         $this->publishes([
-            __DIR__ . '/../config/crudSettings.json' => config_path('crudSettings.json'),
+            __DIR__ . '/config/crudSettings.json' => config_path('crudSettings.json'),
         ]);
     }
 
