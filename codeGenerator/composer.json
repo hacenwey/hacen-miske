@@ -19,10 +19,10 @@
     "extra": {
         "laravel": {
             "providers": [
-                "Package\\HacenMiske\\CodeGenerator\\CrudGeneratorServiceProvider"
+                "HacenMiske\\CodeGenerator\\CrudGeneratorServiceProvider"
             ],
             "aliases": {
-                "CrudGenerator": "Package\\HacenMiske\\CodeGenerator\\Facades\\CrudGenerator"
+                "CrudGenerator": "HacenMiske\\CodeGenerator\\Facades\\CrudGenerator"
             }
         }
     }
