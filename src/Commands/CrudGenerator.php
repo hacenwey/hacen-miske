@@ -3,7 +3,8 @@
 namespace HacenMiske\CodeGenerator\Commands;
 
 use Illuminate\Console\Command;
-use App\Http\Services\CrudGeneratorService;
+
+use HacenMiske\CodeGenerator\CodeGeneratorServices\CrudGeneratorService;
 
 class CrudGenerator extends Command
 {
