@@ -1,0 +1,14 @@
+{
+    "models": [
+        {
+            "name": "Customer",
+           "attributes":["name","phone","address","cat"],
+           "types": ["String","integer","String","String"]
+        },
+        {
+            "name": "Product",
+            "attributes":["name","category","prix","cat"],
+            "types": ["String","integer","String","String"]
+        }
+    ]
+}

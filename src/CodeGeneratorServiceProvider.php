@@ -18,8 +18,13 @@ class CodeGeneratorServiceProvider extends ServiceProvider
 
         $this->publishes([
             __DIR__ . '/resources/stubs' => resource_path('vendor/hacen-miske/stubs'),
+
         ]);
+
+        $this->mergeConfigFrom(__DIR__ . '/../config/crudSettings.json');
     }
+
+
 
     /**
      * Bootstrap services.
