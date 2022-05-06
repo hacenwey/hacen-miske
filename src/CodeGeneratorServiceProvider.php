@@ -20,6 +20,10 @@ class CodeGeneratorServiceProvider extends ServiceProvider
             __DIR__ . '/resources/stubs' => resource_path('hacen-miske/stubs'),
 
         ]);
+        $this->publishes([
+            __DIR__ . '/config/crudSettings.json' => config_path('crudSettings'),
+
+        ]);
     }
 
 
