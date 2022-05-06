@@ -40,6 +40,9 @@
       "providers": [
         "HacenMiske\\CodeGenerator\\CodeGeneratorServiceProvider"
       ],
+      "dont-discover": [
+            "laravel/dusk"
+        ],
       "aliases": {
         "CrudGenerator": "HacenMiske\\CodeGenerator\\Facades\\CrudGenerator"
       }
