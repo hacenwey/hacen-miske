@@ -38,13 +38,13 @@
   "extra": {
     "laravel": {
       "providers": [
-        "HacenMiske\\CodeGenerator\\CodeGenerator\\CodeGeneratorServiceProvider"
+        "HacenMiske\\CodeGenerator\\CodeGeneratorServiceProvider"
       ],
       "dont-discover": [
             "laravel/dusk"
         ],
       "aliases": {
-        "CrudGenerator": "HacenMiske\\CodeGenerator\\CodeGenerator\\Facades\\CrudGenerator"
+        "CrudGenerator": "HacenMiske\\CodeGenerator\\Facades\\CrudGenerator"
       }
     }
   }
