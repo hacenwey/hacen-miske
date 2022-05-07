@@ -3,7 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\{{modelName}}Request;
-use App\{{modelName}};
+use App\Models\{{modelName}};
 use Log;
 use Exception;
 
