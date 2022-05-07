@@ -1,5 +1,3 @@
-# hacen-miske
-
 Laravel Code Generator
 A simple Laravel library that allows you to create crud operations with a single command
 
