@@ -3,10 +3,8 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\{{modelName}}Request;
-use App\Models\{{modelName}};
 use App\Http\services\{{modelName}}Service;
-use Log;
-use Exception;
+
 
 class {{modelName}}Controller extends Controller
 {
