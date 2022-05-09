@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\{{modelName}}Request;
 use App\Models\{{modelName}};
+use App\Http\services\{{modelName}}Service;
 use Log;
 use Exception;
 
@@ -11,71 +12,26 @@ class {{modelName}}Controller extends Controller
 {
     public function index()
     {
-        ${{modelNamePluralLowerCase}} = {{modelName}}::latest()->get();
-
-        $empty{{modelName}} = ${{modelNamePluralLowerCase}}->count() === 0;
-
-        $response = [
-            'message' => !$empty{{modelName}} ? 'la Liste des {{modelName}} a été recupées avec succès' : 'La liste de {{modelName}} est vide',
-            'data' => !$empty{{modelName}} ? ${{modelNamePluralLowerCase}} : []
-        ];
-
-        return response($response);
+       return {{ModelName}}Service::display{{ModelName}}();
     }
 
     public function store({{modelName}}Request $request)
     {
-
-        try {
-            ${{modelNameSingularLowerCase}} = {{modelName}}::create($request->all());
-        } catch(Exception $ex) {
-            Log::info("Problem lors de la creation d'une {{modelName}}: ". json_encode($request->all()));
-            Log::error($ex->getMessage());
-
-            return response(['message' => 'Un problème est survenu lors de la création de la {{modelName}}.'], 500);
-        }
-
-        $response = [
-            'message' => 'La {{modelName}} à été créé avec succèss',
-            'data' => ${{modelNameSingularLowerCase}}
-        ];
-
-        return response($response, 201);
-
+       return {{ModelName}}Service::create{{ModelName}}($request->all());
     }
 
     public function show($id)
     {
-        ${{modelNameSingularLowerCase}} = {{modelName}}::findOrFail($id);
-
-        return response(['data', ${{modelNameSingularLowerCase}} ], 200);
+        return {{ModelName}}Service::show{{ModelName}}($id);
     }
 
     public function update({{modelName}}Request $request, $id)
     {
-        try {
-            ${{modelNameSingularLowerCase}} = {{modelName}}::findOrFail($id);
-            ${{modelNameSingularLowerCase}}->update($request->all());
-        } catch(Exception $ex) {
-            Log::info("Problem lors de la lors du mise à jour d'une {{modelName}}: ". json_encode($request->all()));
-            Log::error($ex->getMessage());
-
-            return response(['message' => 'Un problème est survenu lors du mise à jour de la {{modelName}}.'], 500);
-        }
-
-
-        $response = [
-            'message' => 'La {{modelName}} à été modifié avec succèss',
-            'data' => ${{modelNameSingularLowerCase}}
-        ];
-
-        return response($response);
+        return {{ModelName}}Service::update{{ModelName}}($request->all(), $id);
     }
 
     public function destroy($id)
     {
-        {{modelName}}::destroy($id);
-
-        return response(['data' => null ], 204);
+        return {{ModelName}}Service::delete{{ModelName}}($id);
     }
 }

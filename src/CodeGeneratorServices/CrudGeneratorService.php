@@ -24,6 +24,26 @@ class CrudGeneratorService
         $template = str_replace(
             [
                 '{{modelName}}',
+            ],
+            [
+                $name,
+            ],
+
+            CrudGeneratorService::GetStubs('Controller')
+        );
+
+        file_put_contents(app_path("/Http/Controllers/{$name}Controller.php"), $template);
+    }
+
+    /**
+     * @param $name
+     * This will create controller from stub file
+     */
+    public static function MakeService($name)
+    {
+        $template = str_replace(
+            [
+                '{{modelName}}',
                 '{{modelNamePluralLowerCase}}',
                 '{{modelNameSingularLowerCase}}',
             ],
@@ -33,10 +53,11 @@ class CrudGeneratorService
                 strtolower($name)
             ],
 
-            CrudGeneratorService::GetStubs('Controller')
+            CrudGeneratorService::GetStubs('Service')
         );
-
-        file_put_contents(app_path("/Http/Controllers/{$name}Controller.php"), $template);
+        if (!file_exists($path = app_path('/Http/Services/')))
+            mkdir($path, 0777, true);
+        file_put_contents(app_path("/Http/Services/{$name}Service.php"), $template);
     }
 
     /**

@@ -50,6 +50,8 @@ class CrudGenerator extends Command
                 $tableattr .= '$table->' . $type . '("' . $attr . '");' . "\n\t\t\t";
             }
             $attributes = substr($attributes, 0, -1);
+            CrudGeneratorService::MakeService($model['name']);
+            $this->info('Service for ' . $model['name'] . ' created successfully');
             CrudGeneratorService::MakeController($model['name']);
             $this->info('Controller for ' . $model['name'] . ' created successfully');
             CrudGeneratorService::MakeModel($model['name'], $attributes);
