@@ -7,20 +7,20 @@ use Exception;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Hash;
 use App\Models\{{ModelName}};
-use App\Http\Resource\{{ModelName}}Resource;
+use App\Http\Resource\{modelName}}Resource;
 
-class {{ModelName}}Service
+class {modelName}}Service
 {
 
-     static function display{{ModelName}}()
+     static function display{modelName}}()
     {
-         ${{modelNamePluralLowerCase}} = {{modelName}}::latest()->get();
+         ${modelNamePluralLowerCase}} = {modelName}}::latest()->get();
 
-        $empty{{modelName}} = ${{modelNamePluralLowerCase}}->count() === 0;
+        $empty{modelName}} = ${modelNamePluralLowerCase}}->count() === 0;
 
         $response = [
-            'message' => !$empty{{modelName}} ? 'la Liste des {{modelName}} a été recupées avec succès' : 'La liste de {{modelName}} est vide',
-            'data' => !$empty{{modelName}} ? ${{modelNamePluralLowerCase}} : []
+            'message' => !$empty{modelName}} ? 'la Liste des {modelName}} a été recupées avec succès' : 'La liste de {modelName}} est vide',
+            'data' => !$empty{modelName}} ? ${{modelNamePluralLowerCase}} : []
         ];
 
         return response($response);
