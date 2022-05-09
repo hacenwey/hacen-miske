@@ -3,12 +3,14 @@
         {
             "name": "Customer",
            "attributes":["name","phone","address","cat"],
-           "types": ["String","integer","String","String"]
+           "types": ["String","integer","String","String"],
+           "validator":["required|max:255","required|max:255","required|max:255","required|max:255"]
         },
         {
             "name": "Product",
             "attributes":["name","category","prix","cat"],
-            "types": ["String","integer","String","String"]
+            "types": ["String","integer","String","String"],
+            "validator":["required|max:255","required|max:255","required|max:255","required|max:255"]
         }
     ]
 }

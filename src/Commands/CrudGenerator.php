@@ -45,18 +45,22 @@ class CrudGenerator extends Command
             echo $model['name'] . "\n";
             $attributes = '';
             $tableattr = '';
+            $validator = '';
+            $index = 0;
             foreach (array_combine($model['attributes'], $model['types'])  as $attr => $type) {
                 $attributes .= '"' . $attr . '",';
                 $tableattr .= '$table->' . $type . '("' . $attr . '");' . "\n\t\t\t";
+                $validator .= '"' . $attr . "=>" . "'" . $model['validator'][$index] . ",'\n";
+                $index += 1;
             }
             $attributes = substr($attributes, 0, -1);
             CrudGeneratorService::MakeService($model['name']);
-            $this->info('Service for ' . $model['name'] . ' created successfully');
+            $this->info('Controller for ' . $model['name'] . ' created successfully');
             CrudGeneratorService::MakeController($model['name']);
             $this->info('Controller for ' . $model['name'] . ' created successfully');
             CrudGeneratorService::MakeModel($model['name'], $attributes);
             $this->info('Model for ' . $model['name'] . ' created successfully');
-            CrudGeneratorService::MakeRequest($model['name'], $attributes);
+            CrudGeneratorService::MakeRequest($model['name'], $validator);
             $this->info('Request for ' . $model['name'] . 'name created successfully');
             CrudGeneratorService::MakeResource($model['name']);
             $this->info('Resource for ' . $model['name'] . ' created successfully');
