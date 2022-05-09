@@ -12,26 +12,26 @@ class {{modelName}}Controller extends Controller
 {
     public function index()
     {
-       return {{ModelName}}Service::display{{ModelName}}();
+       return {{modelName}}Service::display{{modelName}}();
     }
 
     public function store({{modelName}}Request $request)
     {
-       return {{ModelName}}Service::create{{ModelName}}($request->all());
+       return {{modelName}}Service::create{{modelName}}($request->all());
     }
 
     public function show($id)
     {
-        return {{ModelName}}Service::show{{ModelName}}($id);
+        return {{modelName}}Service::show{{modelName}}($id);
     }
 
     public function update({{modelName}}Request $request, $id)
     {
-        return {{ModelName}}Service::update{{ModelName}}($request->all(), $id);
+        return {{modelName}}Service::update{{modelName}}($request->all(), $id);
     }
 
     public function destroy($id)
     {
-        return {{ModelName}}Service::delete{{ModelName}}($id);
+        return {{modelName}}Service::delete{{modelName}}($id);
     }
 }
