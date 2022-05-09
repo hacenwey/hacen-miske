@@ -6,28 +6,28 @@ namespace Http\services;
 use Exception;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Hash;
-use App\Models\{{ModelName}};
-use App\Http\Resource\{modelName}}Resource;
+use App\Models\{{modelName}};
+use App\Http\Resource\{{modelName}}Resource;
 
-class {modelName}}Service
+class {{modelName}}Service
 {
 
-     static function display{modelName}}()
+     static function display{{modelName}}()
     {
-         ${modelNamePluralLowerCase}} = {modelName}}::latest()->get();
+         ${{modelNamePluralLowerCase}} = {{modelName}}::latest()->get();
 
-        $empty{modelName}} = ${modelNamePluralLowerCase}}->count() === 0;
+        $empty{{modelName}} = ${{modelNamePluralLowerCase}}->count() === 0;
 
         $response = [
-            'message' => !$empty{modelName}} ? 'la Liste des {modelName}} a été recupées avec succès' : 'La liste de {modelName}} est vide',
-            'data' => !$empty{modelName}} ? ${{modelNamePluralLowerCase}} : []
+            'message' => !$empty{{modelName}} ? 'la Liste des {{modelName}} a été recupées avec succès' : 'La liste de {{modelName}} est vide',
+            'data' => !$empty{{modelName}} ? ${{modelNamePluralLowerCase}} : []
         ];
 
         return response($response);
     }
 
 
-    static function create{{ModelName}}($data)
+    static function create{{modelName}}($data)
     {
         
         try {
@@ -48,14 +48,14 @@ class {modelName}}Service
 
     }
 
-    static function show{{ModelName}}($data)
+    static function show{{modelName}}($data)
     {
          ${{modelNameSingularLowerCase}} = {{modelName}}::findOrFail($data);
 
         return response(['data', ${{modelNameSingularLowerCase}} ], 200);
     }
 
-    static function update{{ModelName}}($data,$id)
+    static function update{{modelName}}($data,$id)
     {
         try {
             ${{modelNameSingularLowerCase}} = {{modelName}}::findOrFail($id);
@@ -76,7 +76,7 @@ class {modelName}}Service
         return response($response);
     }
 
-    static function delete{{ModelName}}($id)
+    static function delete{{modelName}}($id)
     {
          {{modelName}}::destroy($id);
 
