@@ -114,7 +114,9 @@ class CrudGeneratorService
     public static function MakeRoute($name)
     {
         $path_to_file  = base_path('routes/api.php');
-        $append_route = 'Route::apiResource(\'' . Str::plural(strtolower($name)) . "', '{$name}Controller'); \n";
+        $append_route = 'Route::apiResource(\'' . Str::plural(strtolower($name)) . "', {$name}Controller::class); \n";
+        $append_import = 'use App\Http\Controllers\\' . $name . 'Controller;';
         File::append($path_to_file, $append_route);
+        File::prepend($path_to_file, $append_import);
     }
 }
