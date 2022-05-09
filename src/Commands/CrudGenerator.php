@@ -50,7 +50,7 @@ class CrudGenerator extends Command
             foreach (array_combine($model['attributes'], $model['types'])  as $attr => $type) {
                 $attributes .= '"' . $attr . '",';
                 $tableattr .= '$table->' . $type . '("' . $attr . '");' . "\n\t\t\t";
-                $validator .= "'" . $attr . "' =>" . "'" . $model['validator'][$index] . "', \n";
+                $validator .= "'" . $attr . "' =>" . "'" . $model['validator'][$index] . "', \n\t\t\t\t";
                 $index += 1;
             }
             $attributes = substr($attributes, 0, -1);
