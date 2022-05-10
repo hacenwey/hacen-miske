@@ -80,27 +80,28 @@ class CrudGenerator extends Command
                         ]));
                     }
                 }
-
-                $this->info("relations_model_functions  :  " . $relations_model_functions);
-
-                CrudGeneratorService::MakeService($model['name']);
-                $this->info('Controller for ' . $model['name'] . ' created successfully');
-                CrudGeneratorService::MakeController($model['name']);
-                $this->info('Controller for ' . $model['name'] . ' created successfully');
-                CrudGeneratorService::MakeModel($model['name'], $attributes, $model_function_relation);
-                $this->info('Model for ' . $model['name'] . ' created successfully');
-                CrudGeneratorService::MakeRequest($model['name'], $validator);
-                $this->info('Request for ' . $model['name'] . 'name created successfully');
-                CrudGeneratorService::MakeResource($model['name'], $resouceAttr);
-                $this->info('Resource for ' . $model['name'] . ' created successfully');
-                CrudGeneratorService::MakeMigration($model['name'], $tableattr);
-                $this->info('Migration for ' . $model['name'] . ' created successfully');
-                CrudGeneratorService::MakeRoute($model['name']);
-                $this->info('Route for ' . $model['name'] . ' created successfully');
-
-                $this->info('Api Crud for ' . $model['name'] . ' created successfully');
             }
+
+            $this->info("relations_model_functions  :  " . $relations_model_functions);
+
+            CrudGeneratorService::MakeService($model['name']);
+            $this->info('Controller for ' . $model['name'] . ' created successfully');
+            CrudGeneratorService::MakeController($model['name']);
+            $this->info('Controller for ' . $model['name'] . ' created successfully');
+            CrudGeneratorService::MakeModel($model['name'], $attributes, $model_function_relation);
+            $this->info('Model for ' . $model['name'] . ' created successfully');
+            CrudGeneratorService::MakeRequest($model['name'], $validator);
+            $this->info('Request for ' . $model['name'] . 'name created successfully');
+            CrudGeneratorService::MakeResource($model['name'], $resouceAttr);
+            $this->info('Resource for ' . $model['name'] . ' created successfully');
+            CrudGeneratorService::MakeMigration($model['name'], $tableattr);
+            $this->info('Migration for ' . $model['name'] . ' created successfully');
+            CrudGeneratorService::MakeRoute($model['name']);
+            $this->info('Route for ' . $model['name'] . ' created successfully');
+
+            $this->info('Api Crud for ' . $model['name'] . ' created successfully');
         }
+
         foreach ($relations_model_functions as $model => $model_func) {
             $file = app_path("Models\\" . $model . ".php");
             $content = file($file); //Read the file into an array. Line number => line content
