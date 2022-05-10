@@ -42,12 +42,14 @@ class CrudGenerator extends Command
     {
         $config = json_decode(file_get_contents(base_path('config/crudSettings.json')), true);
 
+        $relations_model_functions = collect([]);
         foreach ($config['models'] as $model) {
             echo $model['name'] . "\n";
             $attributes = '';
             $tableattr = '';
             $validator = '';
             $resouceAttr = '';
+            $secondName = '';
             $model_function_relation = '';
             foreach ($model['attributes']  as $attr) {
                 $attributes .= '"' . $attr["key"] . '",';
@@ -60,27 +62,31 @@ class CrudGenerator extends Command
                 foreach ($model['related_to'] as $relation) {
                     $tableattr .= '$table->unsignedBigInteger(' . "'" . $config["relations"][$relation]["fkey"] . "'" . ");\n\t\t\t";
                     $tableattr .= ' $table->foreign(' . "'" . $config["relations"][$relation]["fkey"] . "'" . ")->references('id')->on('" . strtolower(Str::plural($config["relations"][$relation]["first"])) . "');\n\t\t\t";
-                    $model_function_relation .= "public function comments() \n\t\t{\n\t\treturn " . "$" . "this->" . $config["relations"][$relation]["type"] . "(" . $model['name'] . "::class);\n\t\t}\n\t\t";
-
-
-
-                    CrudGeneratorService::MakeService($model['name']);
-                    $this->info('Controller for ' . $model['name'] . ' created successfully');
-                    CrudGeneratorService::MakeController($model['name']);
-                    $this->info('Controller for ' . $model['name'] . ' created successfully');
-                    CrudGeneratorService::MakeModel($model['name'], $attributes, $model_function_relation);
-                    $this->info('Model for ' . $model['name'] . ' created successfully');
-                    CrudGeneratorService::MakeRequest($model['name'], $validator);
-                    $this->info('Request for ' . $model['name'] . 'name created successfully');
-                    CrudGeneratorService::MakeResource($model['name'], $resouceAttr);
-                    $this->info('Resource for ' . $model['name'] . ' created successfully');
-                    CrudGeneratorService::MakeMigration($model['name'], $tableattr);
-                    $this->info('Migration for ' . $model['name'] . ' created successfully');
-                    CrudGeneratorService::MakeRoute($model['name']);
-                    $this->info('Route for ' . $model['name'] . ' created successfully');
-
-                    $this->info('Api Crud for ' . $model['name'] . ' created successfully');
+                    $model_function_relation .= "public function " . strtolower(Str::plural($config["relations"][$relation]["first"])) . "() \n\t\t{\n\t\treturn " . "$" . "this->" . $config["relations"][$relation]["type"] . "(" . $model['name'] . "::class);\n\t\t}\n\t\t";
+                    if ($relations_model_functions->contains($config["relations"][$relation]["second"])) {
+                    } else {
+                        $relations_model_functions->put($config["relations"][$relation]["second"], [collect(['func', $model_function_relation], ['model', $model['name']])]);
+                    }
                 }
+
+                $this->info("relations_model_functions  :  " . $relations_model_functions);
+
+                CrudGeneratorService::MakeService($model['name']);
+                $this->info('Controller for ' . $model['name'] . ' created successfully');
+                CrudGeneratorService::MakeController($model['name']);
+                $this->info('Controller for ' . $model['name'] . ' created successfully');
+                CrudGeneratorService::MakeModel($model['name'], $attributes, $model_function_relation);
+                $this->info('Model for ' . $model['name'] . ' created successfully');
+                CrudGeneratorService::MakeRequest($model['name'], $validator);
+                $this->info('Request for ' . $model['name'] . 'name created successfully');
+                CrudGeneratorService::MakeResource($model['name'], $resouceAttr);
+                $this->info('Resource for ' . $model['name'] . ' created successfully');
+                CrudGeneratorService::MakeMigration($model['name'], $tableattr);
+                $this->info('Migration for ' . $model['name'] . ' created successfully');
+                CrudGeneratorService::MakeRoute($model['name']);
+                $this->info('Route for ' . $model['name'] . ' created successfully');
+
+                $this->info('Api Crud for ' . $model['name'] . ' created successfully');
             }
         }
     }
