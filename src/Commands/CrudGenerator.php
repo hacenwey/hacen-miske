@@ -55,6 +55,13 @@ class CrudGenerator extends Command
                 $resouceAttr .= "'" . $attr . "' =>$" . "this->" . $attr . ", \n\t\t\t";
                 $index += 1;
             }
+
+            foreach ($model['attributes']  as $attr) {
+                $attributes .= '"' . $attr["key"] . '",';
+                $tableattr .= '$table->' . $attr["db_type"] . '("' . $attr["key"] . '");' . "\n\t\t\t";
+                $validator .= "'" . $attr["key"] . "' =>" . "'" . $attr["str_validator"] . "', \n\t\t\t";
+                $resouceAttr .= "'" . $attr["key"] . "' =>$" . "this->" . $attr["key"] . ", \n\t\t\t";
+            }
             $attributes = substr($attributes, 0, -1);
             CrudGeneratorService::MakeService($model['name']);
             $this->info('Controller for ' . $model['name'] . ' created successfully');
