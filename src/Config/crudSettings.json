@@ -1,8 +1,8 @@
 {
     "models": [
         {
-           "name":"Bamar",
-            "attributes": 
+           "name":"Product",
+            "attributes":
                 [
                     {
                         "key" : "name",
@@ -19,7 +19,7 @@
         },
         {
             "name":"Category",
-            "attributes": 
+            "attributes":
                 [
                     {
                         "key" : "name",
@@ -28,14 +28,32 @@
                     }
                 ],
             "related_to": []
+        },
+        {
+            "name":"Client",
+            "attributes":
+                [
+                    {
+                        "key" : "name",
+                        "db_type": "String",
+                        "str_validator":"required|max:255"
+                    }
+                ],
+            "related_to": [1]
         }
     ],
     "relations": [
         {
             "type": "hasMany",
-            "first": "Bamar",
+            "first": "Product",
             "second": "Category",
-            "fkey": "bamar_id"
-      } 
+            "fkey": "product_id"
+      },
+       {
+            "type": "hasMany",
+            "first": "Client",
+            "second": "Category",
+            "fkey": "client_id"
+      }
     ]
 }
