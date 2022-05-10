@@ -64,9 +64,13 @@ class CrudGenerator extends Command
                     $tableattr .= ' $table->foreign(' . "'" . $config["relations"][$relation]["fkey"] . "'" . ")->references('id')->on('" . strtolower(Str::plural($config["relations"][$relation]["first"])) . "');\n\t\t\t";
                     $model_function_relation .= "public function " . strtolower(Str::plural($config["relations"][$relation]["first"])) . "() \n\t\t{\n\t\treturn " . "$" . "this->" . $config["relations"][$relation]["type"] . "(" . $model['name'] . "::class);\n\t\t}\n\t\t";
                     if ($relations_model_functions->has($config["relations"][$relation]["second"])) {
-                        $relations_model_functions[$config["relations"][$relation]["second"]]->push(['func' => $model_function_relation, 'model' => $model['name']]);
+                        $relations_model_functions[$config["relations"][$relation]["second"]]->push(
+                            [
+                                'func' => $model_function_relation,
+                                'model' => $model['name']
+                            ]
+                        );
                     } else {
-                        // $relations_model_functions->put($config["relations"][$relation]["second"], collect([]));
 
                         $relations_model_functions->put($config["relations"][$relation]["second"], collect([
                             [
@@ -98,8 +102,20 @@ class CrudGenerator extends Command
             }
         }
         foreach ($relations_model_functions as $model => $model_func) {
-            echo $model;
-            echo $model_func;
+            $file = app_path("/Models/{$model}.php");
+            $content = file($file); //Read the file into an array. Line number => line content
+            foreach ($content as $lineNumber => &$lineContent) {
+                foreach ($model_func as $func_model) {
+                    if ($lineNumber == 2) { //Remember we start at line 0.
+                        $lineContent .= 'use App\Models\\' . $func_model["model"] . ';';
+                        //Modify the line. (We're adding another line by using PHP_EOL)
+                    }
+                } //Loop through the array (the "lines")
+
+            }
+
+            $allContent = implode("", $content); //Put the array back into one string
+            file_put_contents($file, $allContent);
         }
     }
 }
