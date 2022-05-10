@@ -59,8 +59,8 @@ class CrudGenerator extends Command
             if (!empty($model['related_to'])) {
                 foreach ($model['related_to'] as $relation) {
                     $tableattr .= '$table->unsignedBigInteger(' . "'" . $config["relations"][$relation]["fkey"] . "'" . ");\n\t\t\t";
-                    $tableattr .= ' $table->foreign(' . "'" . $config["relations"][$relation]["fkey"] . "'" . ")->references('id')->on('" . strtolower(Str::plural($config["relations"][$relation]["first"])) . "');n\t\t\t";
-                    $model_function_relation .= "public function comments() \n{\nreturn " . "$" . "this->" . $config["relations"][$relation]["type"] . "(" . $model['name'] . "::class);\n}\n";
+                    $tableattr .= ' $table->foreign(' . "'" . $config["relations"][$relation]["fkey"] . "'" . ")->references('id')->on('" . strtolower(Str::plural($config["relations"][$relation]["first"])) . "');\n\t\t\t";
+                    $model_function_relation .= "public function comments() \n\t\t{\n\t\treturn " . "$" . "this->" . $config["relations"][$relation]["type"] . "(" . $model['name'] . "::class);\n\t\t}\n\t\t";
 
 
 
