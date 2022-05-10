@@ -111,6 +111,9 @@ class CrudGenerator extends Command
                         $lineContent .= 'use App\Models\\' . $func_model["model"] . ';';
                         //Modify the line. (We're adding another line by using PHP_EOL)
                     }
+                    if ($lineNumber == 11) {
+                        $lineContent .= $func_model["func"];
+                    }
                 } //Loop through the array (the "lines")
 
             }
