@@ -62,7 +62,7 @@ class CrudGenerator extends Command
                 foreach ($model['related_to'] as $relation) {
                     $tableattr .= '$table->unsignedBigInteger(' . "'" . $config["relations"][$relation]["fkey"] . "'" . ");\n\t\t\t";
                     $tableattr .= ' $table->foreign(' . "'" . $config["relations"][$relation]["fkey"] . "'" . ")->references('id')->on('" . strtolower(Str::plural($config["relations"][$relation]["first"])) . "');\n\t\t\t";
-                    $model_function_relation .= "public function " . strtolower(Str::plural($config["relations"][$relation]["first"])) . "() \n\t\t\t{\n\t\t\t\treturn " . "$" . "this->" . $config["relations"][$relation]["type"] . "(" . $model['name'] . "::class);\n\t\t\t}\n\t\t";
+                    $model_function_relation .= "public function " . strtolower(Str::plural($config["relations"][$relation]["first"])) . "() \n\t\t\t{\n\t\t\t\treturn " . "$" . "this->" . $config["relations"][$relation]["type"] . "(" . $model['name'] . "::class);\n\t\t\t}\n";
                     if ($relations_model_functions->has($config["relations"][$relation]["second"])) {
                         $relations_model_functions[$config["relations"][$relation]["second"]]->push(
                             [
