@@ -88,7 +88,7 @@ class CrudGenerator extends Command
             $this->info('Controller for ' . $model['name'] . ' created successfully');
             CrudGeneratorService::MakeController($model['name']);
             $this->info('Controller for ' . $model['name'] . ' created successfully');
-            CrudGeneratorService::MakeModel($model['name'], $attributes, $model_function_relation);
+            CrudGeneratorService::MakeModel($model['name'], $attributes);
             $this->info('Model for ' . $model['name'] . ' created successfully');
             CrudGeneratorService::MakeRequest($model['name'], $validator);
             $this->info('Request for ' . $model['name'] . 'name created successfully');
@@ -112,6 +112,7 @@ class CrudGenerator extends Command
                         //Modify the line. (We're adding another line by using PHP_EOL)
                     }
                     if ($lineNumber == 11) {
+                        echo 'here';
                         $lineContent .= $func_model["func"];
                     }
                 } //Loop through the array (the "lines")

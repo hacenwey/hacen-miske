@@ -9,5 +9,5 @@ class {{modelName}} extends Model
     protected $guarded = ['id'];
     protected $fillable = [{{attributes}}];
 
-    {{relation}}
+    
 }
