@@ -5,6 +5,7 @@ namespace HacenMiske\CodeGenerator\Commands;
 use Illuminate\Console\Command;
 
 use HacenMiske\CodeGenerator\CodeGeneratorServices\CrudGeneratorService;
+use Illuminate\Support\Str;
 
 class CrudGenerator extends Command
 {
