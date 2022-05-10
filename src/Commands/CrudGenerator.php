@@ -46,11 +46,13 @@ class CrudGenerator extends Command
             $attributes = '';
             $tableattr = '';
             $validator = '';
+            $resouceAttr = '';
             $index = 0;
             foreach (array_combine($model['attributes'], $model['types'])  as $attr => $type) {
                 $attributes .= '"' . $attr . '",';
                 $tableattr .= '$table->' . $type . '("' . $attr . '");' . "\n\t\t\t";
                 $validator .= "'" . $attr . "' =>" . "'" . $model['validator'][$index] . "', \n\t\t\t\t";
+                $resouceAttr .= "'" . $attr . "' =>$" . "this->" . $attr . ", \n\t\t\t\t";
                 $index += 1;
             }
             $attributes = substr($attributes, 0, -1);
@@ -62,7 +64,7 @@ class CrudGenerator extends Command
             $this->info('Model for ' . $model['name'] . ' created successfully');
             CrudGeneratorService::MakeRequest($model['name'], $validator);
             $this->info('Request for ' . $model['name'] . 'name created successfully');
-            CrudGeneratorService::MakeResource($model['name']);
+            CrudGeneratorService::MakeResource($resouceAttr);
             $this->info('Resource for ' . $model['name'] . ' created successfully');
             CrudGeneratorService::MakeMigration($model['name'], $tableattr);
             $this->info('Migration for ' . $model['name'] . ' created successfully');
