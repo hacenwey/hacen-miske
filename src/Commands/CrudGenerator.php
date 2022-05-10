@@ -42,7 +42,7 @@ class CrudGenerator extends Command
     {
         $config = json_decode(file_get_contents(base_path('config/crudSettings.json')), true);
 
-        $relations_model_functions = collect([]);
+        $relations_model_functions = collect();
         foreach ($config['models'] as $model) {
             echo $model['name'] . "\n";
             $attributes = '';
@@ -64,9 +64,9 @@ class CrudGenerator extends Command
                     $tableattr .= ' $table->foreign(' . "'" . $config["relations"][$relation]["fkey"] . "'" . ")->references('id')->on('" . strtolower(Str::plural($config["relations"][$relation]["first"])) . "');\n\t\t\t";
                     $model_function_relation .= "public function " . strtolower(Str::plural($config["relations"][$relation]["first"])) . "() \n\t\t{\n\t\treturn " . "$" . "this->" . $config["relations"][$relation]["type"] . "(" . $model['name'] . "::class);\n\t\t}\n\t\t";
                     if ($relations_model_functions->has($config["relations"][$relation]["second"])) {
-                        array_push($relations_model_functions[$config["relations"][$relation]["second"]], collect(['func' => $model_function_relation, 'model' => $model['name']]));
+                        $relations_model_functions[$config["relations"][$relation]["second"]]->push(['func' => $model_function_relation, 'model' => $model['name']]);
                     } else {
-                        $relations_model_functions->put($config["relations"][$relation]["second"], [collect(['func' => $model_function_relation, 'model' => $model['name']])]);
+                        $relations_model_functions->put($config["relations"][$relation]["second"], collect(['func' => $model_function_relation, 'model' => $model['name']]));
                     }
                 }
 
