@@ -96,11 +96,11 @@ class CrudGeneratorService
      * @param $name
      * This will create Request from stub file
      */
-    public static function MakeResource($name)
+    public static function MakeResource($name, $attr)
     {
         $template = str_replace(
-            ['{{modelName}}'],
-            [$name],
+            ['{{modelName}}', '{{attributes}}'],
+            [$name, $attr],
             CrudGeneratorService::GetStubs('Resource')
         );
 

@@ -64,7 +64,7 @@ class CrudGenerator extends Command
             $this->info('Model for ' . $model['name'] . ' created successfully');
             CrudGeneratorService::MakeRequest($model['name'], $validator);
             $this->info('Request for ' . $model['name'] . 'name created successfully');
-            CrudGeneratorService::MakeResource($resouceAttr);
+            CrudGeneratorService::MakeResource($model['name'], $resouceAttr);
             $this->info('Resource for ' . $model['name'] . ' created successfully');
             CrudGeneratorService::MakeMigration($model['name'], $tableattr);
             $this->info('Migration for ' . $model['name'] . ' created successfully');
