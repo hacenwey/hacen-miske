@@ -47,6 +47,7 @@ class CrudGenerator extends Command
             $tableattr = '';
             $validator = '';
             $resouceAttr = '';
+            $model_function_relation = '';
             foreach ($model['attributes']  as $attr) {
                 $attributes .= '"' . $attr["key"] . '",';
                 $tableattr .= '$table->' . $attr["db_type"] . '("' . $attr["key"] . '");' . "\n\t\t\t";
@@ -54,22 +55,35 @@ class CrudGenerator extends Command
                 $resouceAttr .= "'" . $attr["key"] . "' =>$" . "this->" . $attr["key"] . ", \n\t\t\t";
             }
             $attributes = substr($attributes, 0, -1);
-            CrudGeneratorService::MakeService($model['name']);
-            $this->info('Controller for ' . $model['name'] . ' created successfully');
-            CrudGeneratorService::MakeController($model['name']);
-            $this->info('Controller for ' . $model['name'] . ' created successfully');
-            CrudGeneratorService::MakeModel($model['name'], $attributes);
-            $this->info('Model for ' . $model['name'] . ' created successfully');
-            CrudGeneratorService::MakeRequest($model['name'], $validator);
-            $this->info('Request for ' . $model['name'] . 'name created successfully');
-            CrudGeneratorService::MakeResource($model['name'], $resouceAttr);
-            $this->info('Resource for ' . $model['name'] . ' created successfully');
-            CrudGeneratorService::MakeMigration($model['name'], $tableattr);
-            $this->info('Migration for ' . $model['name'] . ' created successfully');
-            CrudGeneratorService::MakeRoute($model['name']);
-            $this->info('Route for ' . $model['name'] . ' created successfully');
+            if (!empty($model['related_to'])) {
+                foreach ($model['related_to'] as $relation) {
+                    $tableattr .= '$table->unsignedBigInteger(' . $config["relations"][$relation]["fkey"] . ");n\t\t\t";
+                    $tableattr .= ' $table->foreign(' . $config["relations"][$relation]["fkey"] . ")->references('id')->on('" . strtolower(Str::plural($config["relations"][$relation]["first"])) . "');n\t\t\t";
+                    $model_function_relation .= "public function comments() \n{\n
+                                                    return " . "$" . "this->" . $config["relations"][$relation]["type"] . "(" . $model['name'] . "::class);\n
 
-            $this->info('Api Crud for ' . $model['name'] . ' created successfully');
+                                                                }\n";
+
+
+
+                    CrudGeneratorService::MakeService($model['name']);
+                    $this->info('Controller for ' . $model['name'] . ' created successfully');
+                    CrudGeneratorService::MakeController($model['name']);
+                    $this->info('Controller for ' . $model['name'] . ' created successfully');
+                    CrudGeneratorService::MakeModel($model['name'], $attributes, $model_function_relation);
+                    $this->info('Model for ' . $model['name'] . ' created successfully');
+                    CrudGeneratorService::MakeRequest($model['name'], $validator);
+                    $this->info('Request for ' . $model['name'] . 'name created successfully');
+                    CrudGeneratorService::MakeResource($model['name'], $resouceAttr);
+                    $this->info('Resource for ' . $model['name'] . ' created successfully');
+                    CrudGeneratorService::MakeMigration($model['name'], $tableattr);
+                    $this->info('Migration for ' . $model['name'] . ' created successfully');
+                    CrudGeneratorService::MakeRoute($model['name']);
+                    $this->info('Route for ' . $model['name'] . ' created successfully');
+
+                    $this->info('Api Crud for ' . $model['name'] . ' created successfully');
+                }
+            }
         }
     }
 }

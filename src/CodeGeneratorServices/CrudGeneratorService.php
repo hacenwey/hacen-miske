@@ -64,11 +64,11 @@ class CrudGeneratorService
      * @param $name
      * This will create model from stub file
      */
-    public static function MakeModel($name, $attributes)
+    public static function MakeModel($name, $attributes, $relation = "")
     {
         $template = str_replace(
-            ['{{modelName}}', '{{attributes}}'],
-            [$name, $attributes],
+            ['{{modelName}}', '{{attributes}}', '{{relation}}'],
+            [$name, $attributes, $relation],
             CrudGeneratorService::GetStubs('Model')
         );
 

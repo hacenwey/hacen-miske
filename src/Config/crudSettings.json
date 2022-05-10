@@ -1,7 +1,7 @@
 {
     "models": [
         {
-            "name":"ExampleUser",
+           "name":"Product",
             "attributes": 
                 [
                     {
@@ -10,11 +10,32 @@
                         "str_validator":"required|max:255"
                     },
                     {
-                        "key" : "phone",
+                        "key" : "price",
                         "db_type": "String",
                         "str_validator":"required|max:255"
                     }
-                ]
+                ],
+            "related_to": [0]
+        },
+        {
+            "name":"Category",
+            "attributes": 
+                [
+                    {
+                        "key" : "name",
+                        "db_type": "String",
+                        "str_validator":"required|max:255"
+                    }
+                ],
+            "related_to": []
         }
+    ],
+    "relations": [
+        {
+            "type": "hasMany",
+            "first": "Product",
+            "second": "Category",
+            "fkey": "product_id"
+      }        
     ]
 }
