@@ -1,7 +1,7 @@
 {
     "models": [
         {
-           "name":"Amar",
+           "name":"Bamar",
             "attributes": 
                 [
                     {
@@ -33,9 +33,9 @@
     "relations": [
         {
             "type": "hasMany",
-            "first": "Amar",
+            "first": "Bamar",
             "second": "Category",
-            "fkey": "amar_id"
+            "fkey": "bamar_id"
       } 
     ]
 }

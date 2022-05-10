@@ -65,7 +65,7 @@ class CrudGenerator extends Command
                     $model_function_relation .= "public function " . strtolower(Str::plural($config["relations"][$relation]["first"])) . "() \n\t\t{\n\t\treturn " . "$" . "this->" . $config["relations"][$relation]["type"] . "(" . $model['name'] . "::class);\n\t\t}\n\t\t";
                     if ($relations_model_functions->contains($config["relations"][$relation]["second"])) {
                     } else {
-                        $relations_model_functions->put($config["relations"][$relation]["second"], [collect(['func', $model_function_relation], ['model', $model['name']])]);
+                        $relations_model_functions->put($config["relations"][$relation]["second"], [collect(['func' => $model_function_relation, 'model' => $model['name']])]);
                     }
                 }
 
