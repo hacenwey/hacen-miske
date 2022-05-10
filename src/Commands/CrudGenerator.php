@@ -47,15 +47,6 @@ class CrudGenerator extends Command
             $tableattr = '';
             $validator = '';
             $resouceAttr = '';
-            $index = 0;
-            foreach (array_combine($model['attributes'], $model['types'])  as $attr => $type) {
-                $attributes .= '"' . $attr . '",';
-                $tableattr .= '$table->' . $type . '("' . $attr . '");' . "\n\t\t\t";
-                $validator .= "'" . $attr . "' =>" . "'" . $model['validator'][$index] . "', \n\t\t\t";
-                $resouceAttr .= "'" . $attr . "' =>$" . "this->" . $attr . ", \n\t\t\t";
-                $index += 1;
-            }
-
             foreach ($model['attributes']  as $attr) {
                 $attributes .= '"' . $attr["key"] . '",';
                 $tableattr .= '$table->' . $attr["db_type"] . '("' . $attr["key"] . '");' . "\n\t\t\t";
