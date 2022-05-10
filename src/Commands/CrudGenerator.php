@@ -90,5 +90,8 @@ class CrudGenerator extends Command
                 $this->info('Api Crud for ' . $model['name'] . ' created successfully');
             }
         }
+        foreach ($relations_model_functions as $model_func) {
+            echo $model_func;
+        }
     }
 }
