@@ -102,7 +102,7 @@ class CrudGenerator extends Command
             }
         }
         foreach ($relations_model_functions as $model => $model_func) {
-            $file = app_path("/Models/{$model}.php");
+            $file = app_path("Models\{$model}.php");
             $content = file($file); //Read the file into an array. Line number => line content
             foreach ($content as $lineNumber => &$lineContent) {
                 foreach ($model_func as $func_model) {
