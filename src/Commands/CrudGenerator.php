@@ -66,7 +66,14 @@ class CrudGenerator extends Command
                     if ($relations_model_functions->has($config["relations"][$relation]["second"])) {
                         $relations_model_functions[$config["relations"][$relation]["second"]]->push(['func' => $model_function_relation, 'model' => $model['name']]);
                     } else {
-                        $relations_model_functions->put($config["relations"][$relation]["second"], collect(['func' => $model_function_relation, 'model' => $model['name']]));
+                        // $relations_model_functions->put($config["relations"][$relation]["second"], collect([]));
+
+                        $relations_model_functions->put($config["relations"][$relation]["second"], collect([
+                            [
+                                'func' => $model_function_relation,
+                                'model' => $model['name']
+                            ]
+                        ]));
                     }
                 }
 
