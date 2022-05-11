@@ -123,6 +123,6 @@ class CrudService
         CrudGeneratorService::MakeResource($name, $resouceAttr);
         CrudGeneratorService::MakeMigration($name, $tableattr);
         CrudGeneratorService::MakeRoute($name);
-        echo "\033[01;33m Api Crud for " . $name . " created successfully\n \033[0m";
+        echo "\033[01;32m Api Crud for\033[0m \033[01;33m" . $name . "\033[0m \033[01;32m created successfully\n \033[0m";
     }
 }
