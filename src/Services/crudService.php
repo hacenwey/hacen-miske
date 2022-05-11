@@ -11,7 +11,6 @@ class CrudService
     {
         $config = json_decode(file_get_contents(base_path('config/crudSettings.json')), true);
         foreach ($config['models'] as $model) {
-            echo $model['name'] . "\n";
             $attributes = '';
             $tableattr = '';
             $validator = '';
@@ -124,6 +123,6 @@ class CrudService
         CrudGeneratorService::MakeResource($name, $resouceAttr);
         CrudGeneratorService::MakeMigration($name, $tableattr);
         CrudGeneratorService::MakeRoute($name);
-        echo "\033[01;32m Api Crud for " . $name . "created successfully\n \033[0m";
+        echo "\033[01;33m Api Crud for " . $name . " created successfully\n \033[0m";
     }
 }
