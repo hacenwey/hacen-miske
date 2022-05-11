@@ -64,7 +64,7 @@ class CrudService
             }
 
 
-            CrudService::createModelCrud($model["name"], $validator, $attributes, $resouceAttr, $tableattr);
+            self::createModelCrud($model["name"], $validator, $attributes, $resouceAttr, $tableattr);
         }
     }
 
@@ -118,19 +118,12 @@ class CrudService
     static function createModelCrud($name, $validator, $attributes, $resouceAttr, $tableattr)
     {
         CrudGeneratorService::MakeService($name);
-        info('Controller for ' . $name . ' created successfully');
         CrudGeneratorService::MakeController($name);
-        info('Controller for ' . $name . ' created successfully');
         CrudGeneratorService::MakeModel($name, $attributes);
-        info('Model for ' . $name . ' created successfully');
         CrudGeneratorService::MakeRequest($name, $validator);
-        info('Request for ' . $name . 'name created successfully');
         CrudGeneratorService::MakeResource($name, $resouceAttr);
-        info('Resource for ' . $name . ' created successfully');
         CrudGeneratorService::MakeMigration($name, $tableattr);
-        info('Migration for ' . $name . ' created successfully');
         CrudGeneratorService::MakeRoute($name);
-        info('Route for ' . $name . ' created successfully');
-        info('Api Crud for ' . $name . ' created successfully');
+        self::info('Api Crud for ' . $name . ' created successfully');
     }
 }
