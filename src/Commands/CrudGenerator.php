@@ -43,6 +43,7 @@ class CrudGenerator extends Command
         $config = json_decode(file_get_contents(base_path('config/crudSettings.json')), true);
 
         $relations_model_functions = collect();
+        $relations_migration_attr = collect();
         foreach ($config['models'] as $model) {
             echo $model['name'] . "\n";
             $attributes = '';
@@ -51,6 +52,7 @@ class CrudGenerator extends Command
             $resouceAttr = '';
             $secondName = '';
             $model_function_relation = '';
+            $migration_attr = '';
             foreach ($model['attributes']  as $attr) {
                 $attributes .= '"' . $attr["key"] . '",';
                 $tableattr .= '$table->' . $attr["db_type"] . '("' . $attr["key"] . '");' . "\n\t\t\t";
@@ -60,8 +62,22 @@ class CrudGenerator extends Command
             $attributes = substr($attributes, 0, -1);
             if (!empty($model['related_to'])) {
                 foreach ($model['related_to'] as $relation) {
-                    $tableattr .= '$table->unsignedBigInteger(' . "'" . $config["relations"][$relation]["fkey"] . "'" . ");\n\t\t\t";
-                    $tableattr .= ' $table->foreign(' . "'" . $config["relations"][$relation]["fkey"] . "'" . ")->references('id')->on('" . strtolower(Str::plural($config["relations"][$relation]["second"])) . "');\n\t\t\t";
+                    $migration_attr .= '$table->unsignedBigInteger(' . "'" . $config["relations"][$relation]["fkey"] . "'" . ");\n\t\t\t";
+                    $migration_attr .= ' $table->foreign(' . "'" . $config["relations"][$relation]["fkey"] . "'" . ")->references('id')->on('" . strtolower(Str::plural($config["relations"][$relation]["second"])) . "');\n\t\t\t";
+                    if ($relations_migration_attr->has($config["relations"][$relation]["second"])) {
+                        $relations_migration_attr[$config["relations"][$relation]["second"]]->push(
+                            [
+                                "migration_attr" => $migration_attr
+                            ]
+                        );
+                    } else {
+                        $relations_migration_attr->put($config["relations"][$relation]["second"], collect([
+                            [
+                                "migration_attr" => $migration_attr
+                            ]
+                        ]));
+                    }
+
                     $model_function_relation .= "public function " . strtolower(Str::plural($config["relations"][$relation]["first"])) . "() \n\t\t{\n\t\t\treturn " . "$" . "this->" . $config["relations"][$relation]["type"] . "(" . $model['name'] . "::class);\n\t\t}\n";
                     if ($relations_model_functions->has($config["relations"][$relation]["second"])) {
                         $relations_model_functions[$config["relations"][$relation]["second"]]->push(
@@ -101,6 +117,10 @@ class CrudGenerator extends Command
 
             $this->info('Api Crud for ' . $model['name'] . ' created successfully');
         }
+
+
+
+
         if (!empty($relations_model_functions)) {
             foreach ($relations_model_functions as $model => $model_func) {
                 $file = app_path("Models\\" . $model . ".php");
@@ -113,6 +133,25 @@ class CrudGenerator extends Command
                         }
                         if ($lineNumber == 11) {
                             $lineContent .= "\t" . $func_model["func"];
+                        }
+                    } //Loop through the array (the "lines")
+
+                }
+
+                $allContent = implode("", $content); //Put the array back into one string
+                file_put_contents($file, $allContent);
+            }
+        }
+
+        if (!empty($relations_migration_attr)) {
+            foreach ($relations_migration_attr as $model => $value) {
+                $glob = glob('database/migrations/*_' . strtolower(Str::plural($model)) . '_table.php');
+                $file = $glob[0];
+                $content = file($file); //Read the file into an array. Line number => line content
+                foreach ($content as $lineNumber => &$lineContent) {
+                    foreach ($model_func as $func_model) {
+                        if ($lineNumber == 17) {
+                            $lineContent .= $value["migration_attr"];
                         }
                     } //Loop through the array (the "lines")
 
