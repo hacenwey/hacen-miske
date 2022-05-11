@@ -133,38 +133,38 @@
     ],
     "relations": [
         {
-            "type": "hasMany",
             "first": "Brand",
+            "type": "hasMany",
             "second": "Article",
             "fkey": "Brand_id"
       },
        {
-            "type": "hasMany",
             "first": "Companie",
+            "type": "hasMany",
             "second": "Article",
             "fkey": "company_id"
       },
        {
-            "type": "hasMany",
             "first": "Categorie",
+            "type": "hasMany",
             "second": "Sub_categorie",
             "fkey": "categorie_id"
       },
        {
-            "type": "hasMany",
             "first": "Sub_categorie",
+            "type": "hasMany",
             "second": "Article",
             "fkey": "sub_categorie_id"
       },
        {
-            "type": "hasMany",
             "first": "Order",
+            "type": "hasMany",
             "second": "Order_item",
             "fkey": "order_id"
       },
        {
-            "type": "hasMany",
             "first": "Article",
+            "type": "hasMany",
             "second": "Order_item",
             "fkey": "article_id"
       }
