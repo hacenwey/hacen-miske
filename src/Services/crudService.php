@@ -4,6 +4,7 @@ namespace HacenMiske\CodeGenerator\Services;
 
 use HacenMiske\CodeGenerator\CodeGeneratorServices\CrudGeneratorService;
 use Illuminate\Support\Str;
+use Illuminate\Console\Command;
 
 class CrudService
 {
@@ -124,6 +125,6 @@ class CrudService
         CrudGeneratorService::MakeResource($name, $resouceAttr);
         CrudGeneratorService::MakeMigration($name, $tableattr);
         CrudGeneratorService::MakeRoute($name);
-        CrudService::info('Api Crud for ' . $name . ' created successfully');
+        Command::comment('Api Crud for ' . $name . ' created successfully');
     }
 }
