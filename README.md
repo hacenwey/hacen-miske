@@ -23,3 +23,6 @@ After publishing the configuration file just run the below command
 
 php artisan crud:generate
 Just it, Now all of your Model Controller, Migration, routes and Request will be created automatically with all the code required for basic crud operations
+
+Features to Develop :
+1/ Create script to sort the objects in the json => to create the right order of migrations ;
