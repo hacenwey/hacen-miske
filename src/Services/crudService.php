@@ -64,7 +64,7 @@ class CrudService
             }
 
 
-            self::createModelCrud($model["name"], $validator, $attributes, $resouceAttr, $tableattr);
+            CrudService::createModelCrud($model["name"], $validator, $attributes, $resouceAttr, $tableattr);
         }
     }
 
@@ -124,6 +124,6 @@ class CrudService
         CrudGeneratorService::MakeResource($name, $resouceAttr);
         CrudGeneratorService::MakeMigration($name, $tableattr);
         CrudGeneratorService::MakeRoute($name);
-        self::info('Api Crud for ' . $name . ' created successfully');
+        CrudService::info('Api Crud for ' . $name . ' created successfully');
     }
 }
