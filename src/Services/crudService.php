@@ -125,6 +125,7 @@ class CrudService
         CrudGeneratorService::MakeResource($name, $resouceAttr);
         CrudGeneratorService::MakeMigration($name, $tableattr);
         CrudGeneratorService::MakeRoute($name);
-        Command::comment('Api Crud for ' . $name . ' created successfully');
+        Command::comment();
+        echo "\e[0;31;42Api Crud for " . $name . "created successfully" . "\e[0m\n";
     }
 }
