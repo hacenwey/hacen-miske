@@ -64,7 +64,7 @@ class CrudService
             }
 
 
-            createModelCrud($model["name"], $validator, $attributes, $resouceAttr, $tableattr);
+            CrudService::createModelCrud($model["name"], $validator, $attributes, $resouceAttr, $tableattr);
         }
     }
 
@@ -115,7 +115,7 @@ class CrudService
         }
     }
 
-    public function createModelCrud($name, $validator, $attributes, $resouceAttr, $tableattr)
+    static function createModelCrud($name, $validator, $attributes, $resouceAttr, $tableattr)
     {
         CrudGeneratorService::MakeService($name);
         info('Controller for ' . $name . ' created successfully');
