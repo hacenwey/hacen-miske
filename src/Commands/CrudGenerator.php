@@ -63,7 +63,7 @@ class CrudGenerator extends Command
             if (!empty($model['related_to'])) {
                 foreach ($model['related_to'] as $relation) {
                     $migration_attr .= '$table->unsignedBigInteger(' . "'" . $config["relations"][$relation]["fkey"] . "'" . ");\n\t\t\t";
-                    $migration_attr .= ' $table->foreign(' . "'" . $config["relations"][$relation]["fkey"] . "'" . ")->references('id')->on('" . strtolower(Str::plural($config["relations"][$relation]["second"])) . "');\n\t\t\t";
+                    $migration_attr .= ' $table->foreign(' . "'" . $config["relations"][$relation]["fkey"] . "'" . ")->references('id')->on('" . strtolower(Str::plural($config["relations"][$relation]["first"])) . "');\n\t\t";
                     if ($relations_migration_attr->has($config["relations"][$relation]["second"])) {
                         $relations_migration_attr[$config["relations"][$relation]["second"]]->push(
                             [
@@ -151,7 +151,7 @@ class CrudGenerator extends Command
                 foreach ($content as $lineNumber => &$lineContent) {
                     foreach ($value as $migration) {
                         if ($lineNumber == 17) {
-                            $lineContent .= $migration["migration_attr"];
+                            $lineContent .= "\t" . $migration["migration_attr"];
                         }
                     } //Loop through the array (the "lines")
 
