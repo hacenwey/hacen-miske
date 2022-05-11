@@ -1,7 +1,7 @@
 {
     "models": [
         {
-           "name":"Product",
+           "name":"Brands",
             "attributes":
                 [
                     {
@@ -10,50 +10,163 @@
                         "str_validator":"required|max:255"
                     },
                     {
-                        "key" : "price",
+                        "key" : "description",
+                        "db_type": "String",
+                        "str_validator":"required|max:255"
+                    },
+                    {
+                        "key" : "image",
                         "db_type": "String",
                         "str_validator":"required|max:255"
                     }
+
                 ],
             "related_to": [0]
         },
         {
-            "name":"Category",
+            "name":"Article",
             "attributes":
                 [
-                    {
+                     {
                         "key" : "name",
+                        "db_type": "String",
+                        "str_validator":"required|max:255"
+                    },
+                    {
+                        "key" : "description",
                         "db_type": "String",
                         "str_validator":"required|max:255"
                     }
                 ],
-            "related_to": []
+            "related_to": [5]
         },
         {
-            "name":"Client",
+            "name":"Companie",
             "attributes":
                 [
                     {
                         "key" : "name",
                         "db_type": "String",
                         "str_validator":"required|max:255"
+                    },
+                    {
+                        "key" : "adresse",
+                        "db_type": "String",
+                        "str_validator":"required|max:255"
                     }
+
                 ],
             "related_to": [1]
+        },
+        {
+            "name":"Categorie",
+            "attributes":
+                [
+                    {
+                        "key" : "name",
+                        "db_type": "String",
+                        "str_validator":"required|max:255"
+                    },
+                    {
+                        "key" : "description",
+                        "db_type": "String",
+                        "str_validator":"required|max:255"
+                    }
+
+                ],
+            "related_to": [2]
+        },
+        {
+            "name":"Sub_categorie",
+            "attributes":
+                [
+                    {
+                        "key" : "name",
+                        "db_type": "String",
+                        "str_validator":"required|max:255"
+                    },
+                    {
+                        "key" : "description",
+                        "db_type": "String",
+                        "str_validator":"required|max:255"
+                    }
+
+                ],
+            "related_to": [3]
+        },
+         {
+            "name":"Order",
+            "attributes":
+                [
+                    {
+                        "key" : "name",
+                        "db_type": "String",
+                        "str_validator":"required|max:255"
+                    },
+                    {
+                        "key" : "reference",
+                        "db_type": "String",
+                        "str_validator":"required|max:255"
+                    }
+
+                ],
+            "related_to": [4]
+        },
+         {
+            "name":"Order_item",
+            "attributes":
+                [
+                    {
+                        "key" : "qte",
+                        "db_type": "String",
+                        "str_validator":"required|max:255"
+                    },
+                    {
+                        "key" : "unit_price",
+                        "db_type": "String",
+                        "str_validator":"required|max:255"
+                    }
+
+                ],
+            "related_to": []
         }
     ],
     "relations": [
         {
             "type": "hasMany",
-            "first": "Product",
-            "second": "Category",
-            "fkey": "product_id"
+            "first": "Brand",
+            "second": "Article",
+            "fkey": "Brand_id"
       },
        {
             "type": "hasMany",
-            "first": "Client",
-            "second": "Category",
-            "fkey": "client_id"
+            "first": "Companie",
+            "second": "Article",
+            "fkey": "company_id"
+      },
+       {
+            "type": "hasMany",
+            "first": "Categorie",
+            "second": "Sub_categorie",
+            "fkey": "categorie_id"
+      },
+       {
+            "type": "hasMany",
+            "first": "Sub_categorie",
+            "second": "Article",
+            "fkey": "sub_categorie_id"
+      },
+       {
+            "type": "hasMany",
+            "first": "Order",
+            "second": "Order_item",
+            "fkey": "order_id"
+      },
+       {
+            "type": "hasMany",
+            "first": "Article",
+            "second": "Order_item",
+            "fkey": "article_id"
       }
     ]
 }
