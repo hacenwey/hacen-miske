@@ -124,6 +124,7 @@ class CrudService
         CrudGeneratorService::MakeResource($name, $resouceAttr);
         CrudGeneratorService::MakeMigration($name, $tableattr);
         CrudGeneratorService::MakeRoute($name);
+        echo "\e[0;31;42mMerry Christmas!\e[0m\n";
         echo "\e[0;31;42Api Crud for " . $name . "created successfully" . "\e[0m\n";
     }
 }
