@@ -149,9 +149,9 @@ class CrudGenerator extends Command
                 $file = $glob[0];
                 $content = file($file); //Read the file into an array. Line number => line content
                 foreach ($content as $lineNumber => &$lineContent) {
-                    foreach ($model_func as $func_model) {
+                    foreach ($value as $migration) {
                         if ($lineNumber == 17) {
-                            $lineContent .= $value["migration_attr"];
+                            $lineContent .= $migration["migration_attr"];
                         }
                     } //Loop through the array (the "lines")
 
