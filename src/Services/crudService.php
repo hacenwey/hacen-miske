@@ -2,14 +2,18 @@
 
 namespace HacenMiske\CodeGenerator\Services;
 
-use HacenMiske\CodeGenerator\CodeGeneratorServices\CrudGeneratorService;
 use Illuminate\Support\Str;
+use Illuminate\Support\Facades\Log;
+use HacenMiske\CodeGenerator\CodeGeneratorServices\CrudGeneratorService;
 
 class CrudService
 {
     static  function generateModelCruds(&$relations_model_functions, &$relations_migration_attr)
     {
         $config = json_decode(file_get_contents(base_path('config/crudSettings.json')), true);
+        CrudService::orderMigrationTables($config);
+
+
         foreach ($config['models'] as $model) {
             $attributes = '';
             $tableattr = '';
@@ -124,5 +128,56 @@ class CrudService
         CrudGeneratorService::MakeMigration($name, $tableattr);
         CrudGeneratorService::MakeRoute($name);
         echo "\033[01;32m Api Crud for\033[0m \033[01;33m" . $name . "\033[0m \033[01;32m created successfully\n \033[0m";
+    }
+    static function orderMigrationTables(&$json)
+    {
+        $json["models"] = collect($json["models"])->sortBy(function ($model, $key) {
+            return count($model["related_to"]);
+        }, descending: true);
+
+        $models_dependency = collect();
+        foreach ($json["models"] as $model) {
+            $models_dependency->put($model["name"], collect([]));
+            foreach ($json["relations"] as $relation) {
+                if ($model["name"] == $relation["second"]) {
+                    $models_dependency[$model["name"]]->push($relation["first"]);
+                }
+            }
+        }
+        $end_loop = false;
+
+        while (!$end_loop) {
+            $index = 0;
+            foreach ($json["models"] as $model) {
+                $modelsIndxes = array();
+                foreach ($models_dependency[$model["name"]] as $model_dep) {
+                    array_push($modelsIndxes, $json["models"]->pluck("name")->search($model_dep));
+                }
+                if (count($modelsIndxes) > 0) {
+                    if ($index < max($modelsIndxes)) {
+                        $input = $json["models"]->toArray();
+                        CrudService::moveElement($input, $index, max($modelsIndxes));
+                        $json["models"] = collect($input);
+                        break;
+                    } else {
+                        $index += 1;
+                    }
+                } else {
+                    $index += 1;
+                }
+                if (($index == (count($json["models"]) - 1))) {
+                    $end_loop = true;
+                    break;
+                }
+                echo $index;
+            }
+        }
+        Log::info(var_export($json["models"], 1));
+    }
+
+    static function moveElement(&$array, $a, $b)
+    {
+        $out = array_splice($array, $a, 1);
+        array_splice($array, $b, 0, $out);
     }
 }
