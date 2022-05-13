@@ -125,7 +125,7 @@ class CrudGeneratorService
 
 
 
-        file_put_contents(base_path('database/migrations/' . date('Y_m_d_u', (time() + $x)) . '_create_' . strtolower(Str::plural($name)) . '_table.php'), $template);
+        file_put_contents(base_path('database/migrations/' . date('Y_m_d') . '_00000' . $x . '_create_' . strtolower(Str::plural($name)) . '_table.php'), $template);
     }
 
     /**
