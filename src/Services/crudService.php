@@ -12,8 +12,6 @@ class CrudService
     {
         $config = json_decode(file_get_contents(base_path('config/crudSettings.json')), true);
         CrudService::orderMigrationTables($config);
-
-
         foreach ($config['models'] as $model) {
             $attributes = '';
             $tableattr = '';
