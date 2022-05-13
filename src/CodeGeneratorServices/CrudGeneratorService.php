@@ -114,7 +114,7 @@ class CrudGeneratorService
      * @param $name
      * This will create migration using artisan command
      */
-    public static function MakeMigration($name, $tableattr)
+    public static function MakeMigration($name, $tableattr, $x)
     {
         // Artisan::call('make:migration create_' . strtolower(Str::plural($name)) . '_table --create=' . strtolower(Str::plural($name)));
         $template = str_replace(
@@ -125,7 +125,7 @@ class CrudGeneratorService
 
 
 
-        file_put_contents(base_path('database/migrations/' . date('Y_m_d_u', (time() + 15)) . '_create_' . strtolower(Str::plural($name)) . '_table.php'), $template);
+        file_put_contents(base_path('database/migrations/' . date('Y_m_d_u', (time() + $x)) . '_create_' . strtolower(Str::plural($name)) . '_table.php'), $template);
     }
 
     /**

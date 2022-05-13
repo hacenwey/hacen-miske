@@ -12,7 +12,9 @@ class CrudService
     {
         $config = json_decode(file_get_contents(base_path('config/crudSettings.json')), true);
         CrudService::orderMigrationTables($config);
+        $x = 0;
         foreach ($config['models'] as $model) {
+
             $attributes = '';
             $tableattr = '';
             $validator = '';
@@ -65,7 +67,7 @@ class CrudService
             }
 
 
-            CrudService::createModelCrud($model["name"], $validator, $attributes, $resouceAttr, $tableattr);
+            CrudService::createModelCrud($model["name"], $validator, $attributes, $resouceAttr, $tableattr, $x);
         }
     }
 
@@ -116,16 +118,17 @@ class CrudService
         }
     }
 
-    static function createModelCrud($name, $validator, $attributes, $resouceAttr, $tableattr)
+    static function createModelCrud($name, $validator, $attributes, $resouceAttr, $tableattr, &$x)
     {
         CrudGeneratorService::MakeService($name);
         CrudGeneratorService::MakeController($name);
         CrudGeneratorService::MakeModel($name, $attributes);
         CrudGeneratorService::MakeRequest($name, $validator);
         CrudGeneratorService::MakeResource($name, $resouceAttr);
-        CrudGeneratorService::MakeMigration($name, $tableattr);
+        CrudGeneratorService::MakeMigration($name, $tableattr, $x);
         CrudGeneratorService::MakeRoute($name);
         echo "\033[01;32m Api Crud for\033[0m \033[01;33m" . $name . "\033[0m \033[01;32m created successfully\n \033[0m";
+        $x += 1;
     }
     static function orderMigrationTables(&$json)
     {
