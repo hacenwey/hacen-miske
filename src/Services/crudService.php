@@ -30,14 +30,16 @@ class CrudService
             $attributes = substr($attributes, 0, -1);
             if (!empty($model['related_to'])) {
                 foreach ($model['related_to'] as $relation) {
-                    $migration_attr .= '$table->unsignedBigInteger(' . "'" . $config["relations"][$relation]["fkey"] . "'" . ");\n\t\t\t";
-                    $migration_attr .= '$table->foreign(' . "'" . $config["relations"][$relation]["fkey"] . "'" . ")->references('id')->on('" . strtolower(Str::plural($config["relations"][$relation]["first"])) . "');\n\t\t";
+
                     if ($relations_migration_attr->has($config["relations"][$relation]["second"])) {
                         $relations_migration_attr[$config["relations"][$relation]["second"]]->push(
                             [
                                 "migration_attr" => $migration_attr
                             ]
                         );
+
+                        $migration_attr .= '$table->unsignedBigInteger(' . "'" . $config["relations"][$relation]["fkey"] . "'" . ");\n\t\t\t";
+                        $migration_attr .= '$table->foreign(' . "'" . $config["relations"][$relation]["fkey"] . "'" . ")->references('id')->on('" . strtolower(Str::plural($config["relations"][$relation]["first"])) . "');\n\t\t";
                     } else {
                         $relations_migration_attr->put($config["relations"][$relation]["second"], collect([
                             [
@@ -46,16 +48,19 @@ class CrudService
                         ]));
                     }
 
-                    $model_function_relation .= "public function " . strtolower(Str::plural($config["relations"][$relation]["first"])) . "() \n\t{\n\t\treturn " . "$" . "this->" . $config["relations"][$relation]["type"] . "(" . $model['name'] . "::class);\n\t}\n";
-                    if ($relations_model_functions->has($config["relations"][$relation]["second"])) {
+                    if ($relations_model_functions->has($config["relations"][$relation]["second"]) && $relations_model_functions[$config["relations"][$relation]["second"]]->pluck("model")->search($model["name"]) == null) {
+
+                        echo "second";
                         $relations_model_functions[$config["relations"][$relation]["second"]]->push(
                             [
                                 'func' => $model_function_relation,
                                 'model' => $model['name']
                             ]
                         );
+                        $model_function_relation .= "public function " . strtolower(Str::plural($config["relations"][$relation]["first"])) . "() \n\t{\n\t\treturn " . "$" . "this->" . $config["relations"][$relation]["type"] . "(" . $model['name'] . "::class);\n\t}\n";
                     } else {
-
+                        echo "first";
+                        $model_function_relation .= "public function " . strtolower(Str::plural($config["relations"][$relation]["first"])) . "() \n\t{\n\t\treturn " . "$" . "this->" . $config["relations"][$relation]["type"] . "(" . $model['name'] . "::class);\n\t}\n";
                         $relations_model_functions->put($config["relations"][$relation]["second"], collect([
                             [
                                 'func' => $model_function_relation,
@@ -65,7 +70,6 @@ class CrudService
                     }
                 }
             }
-
 
             CrudService::createModelCrud($model["name"], $validator, $attributes, $resouceAttr, $tableattr, $x);
         }
@@ -170,10 +174,9 @@ class CrudService
                     $end_loop = true;
                     break;
                 }
-                echo $index;
             }
         }
-        Log::info(var_export($json["models"], 1));
+        // Log::info(var_export($json["models"], 1));
     }
 
     static function moveElement(&$array, $a, $b)
