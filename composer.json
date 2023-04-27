@@ -27,10 +27,11 @@
     "laravel-crud-generator",
     "laravel-api-crud-generator"
   ],
-  "minimum-stability": "dev",
+  "minimum-stability": "stable",
   "prefer-stable": true,
   "require": {
-    "php": "^7.0 || ^7.1 || ^7.2 || ^7.3 || ^7.4 || ^8.0.13"
+    "php": "^7.0 || ^7.1 || ^7.2 || ^7.3 || ^7.4 || ^8.0.13",
+    "hacen-miske/code-generator": "^1.0"
   },
   "require-dev": {
     "laravel/framework": "^5.5 || ^6.0 || ^7.0 || ^8.0"
